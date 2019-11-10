@@ -4,11 +4,22 @@
   width: 100%;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 50;
   background-color: #703509;
   box-sizing: border-box;
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.Logo {
+  height: 80%;
+  /* margin-bottom: 32px; */
+}
+
+@media (max-width: 499px) {
+  .DesktopOnly {
+    display: none;
+  }
 }
