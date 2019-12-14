@@ -6,14 +6,9 @@ import Backdrop from '../Backdrop/Backdrop';
 
 
 class Modal extends Component {
-    constructor(props) {
-        super(props);
-        console.log("Re-rendering of this modal hits performance. ");
-    }
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.log("shouldComponentUpdate : " + nextProps.show !== this.props.show);
-        return nextProps.orderModal !== this.props.orderModal;
+        return nextProps.orderModal !== this.props.orderModal || nextProps.children !== this.props.children;
     }
 
     componentDidUpdate() {
