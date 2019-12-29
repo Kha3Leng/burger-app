@@ -16,8 +16,8 @@ const burgerControls = (props) => (
             (ctrl, index) => {
                 return <BurgerControl label={ctrl.label}
                     key={ctrl + index}
-                    added={props.addedIngredients.bind(this, ctrl.type)}
-                    removed={props.removedIngredients.bind(this, ctrl.type)}
+                    added={() => props.addedIngredients(ctrl.type)}
+                    removed={() => props.removedIngredients(ctrl.type)}
                     disabled={props.disabledObj[ctrl.type]} />
             }
         )}

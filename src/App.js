@@ -5,6 +5,7 @@ import Checkout from './containers/Checkou/Checkout';
 import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Orders from './containers/Orders/Orders';
+import Auth from './containers/Auth/Auth';
 
 class App extends Component {
   // state = {
@@ -28,7 +29,7 @@ class App extends Component {
               <Route path="/" exact component={BurgerBuilder} />
               <Route path="/orders/" component={Orders} />
               <Route path="/checkout/" component={Checkout} />
-
+              <Route path='/authenticate' component={Auth} />
             </Switch>
           </Layout>
 
