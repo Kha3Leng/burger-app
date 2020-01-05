@@ -10,19 +10,19 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import burgerBuilder from './store/reducer/burgerBuilder';
+import authReducer from './store/reducer/auth';
 
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancer = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({
     order: orderReducer,
-    burgerBuilder: burgerBuilder
+    burgerBuilder: burgerBuilder,
+    auth: authReducer
 });
 
 const logger = store => {
     return next => {
         return action => {
-            console.log("[ACTION] : ", action.type);
-            console.log('[State] : ', store.getState());
             return next(action);
         }
     }

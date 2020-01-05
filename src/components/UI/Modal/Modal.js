@@ -11,9 +11,9 @@ class Modal extends Component {
         return nextProps.orderModal !== this.props.orderModal || nextProps.children !== this.props.children;
     }
 
-    componentDidUpdate() {
-        console.log("[Modal] did update");
-    }
+    // componentDidUpdate() {
+    //     console.log("[Modal] did update");
+    // }
 
     render() {
         return (

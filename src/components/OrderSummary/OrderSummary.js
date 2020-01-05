@@ -5,9 +5,9 @@ import Button from '../../components/UI/Button/Button';
 
 class OrderSummary extends Component {
 
-    componentDidUpdate() {
-        console.log("[OrderSummary] re-rendering");
-    }
+    // componentDidUpdate() {
+    //     console.log("[OrderSummary] re-rendering");
+    // }
 
     render() {
         const orderedIngredients = Object.keys(this.props.ingredients).map(

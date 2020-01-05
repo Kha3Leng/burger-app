@@ -8,6 +8,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
+import { updateObject, checkValidity } from '../../../shared/utility';
 
 class ContactData extends Component {
     state = {
@@ -113,44 +114,29 @@ class ContactData extends Component {
         const orderData = {
             ingredients: this.props.ings,
             price: this.props.totalPrice,
-            formData: formData
+            formData: formData,
+            userId: this.props.userId
         };
 
-        this.props.onBurgerPurchase(orderData);
+        this.props.onBurgerPurchase(orderData, this.props.token);
     }
 
-    checkValidity = (value, rule) => {
-        let isValid = true;
 
-        if (!rule) {
-            return true;
-        }
-
-        if (rule.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-
-        if (rule.min_length) {
-            isValid = value.length >= rule.min_length && isValid;
-        }
-
-        if (rule.max_length) {
-            isValid = value.length <= rule.max_length && isValid;
-        }
-
-        return isValid;
-    };
 
     inputChangedHandler = (event, inputId) => {
         // console.log(event.target.value);
-        const updatedForm = { ...this.state.orderForm };
-        const updatedFormElement = { ...updatedForm[inputId] };
+        const updatedFormElement = updateObject(this.state.orderForm[inputId],
+            {
+                value: event.target.value,
+                valid: checkValidity(event.target.value, this.state.orderForm[inputId].validation),
+                touched: true
+            }
+        );
 
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.touched = true;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        const updatedForm = updateObject(this.state.orderForm, {
+            [inputId]: updatedFormElement
+        })
 
-        updatedForm[inputId] = updatedFormElement;
         let formIsValid = true;
         for (let key in updatedForm) {
             formIsValid = updatedForm[key].valid && formIsValid;
@@ -205,13 +191,15 @@ const mapStateToProps = state => {
     return {
         ings: state.burgerBuilder.ingredients,
         totalPrice: state.burgerBuilder.price,
-        loading: state.order.loading
+        loading: state.order.loading,
+        token: state.auth.token,
+        userId: state.auth.userId
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onBurgerPurchase: (orderData) => dispatch(actions.startPurchase(orderData))
+        onBurgerPurchase: (orderData, token) => dispatch(actions.startPurchase(orderData, token))
     }
 };
 

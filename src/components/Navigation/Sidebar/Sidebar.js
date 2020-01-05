@@ -14,11 +14,11 @@ const sidebar = (props) => {
     return (
         <Aux>
             <Backdrop show={props.open} clicked={props.showDrawer} />
-            <div className={attachedClasses.join(' ')}>
+            <div className={attachedClasses.join(' ')} onClick={props.showDrawer}>
                 <div className={classes.Logo}>
                     <Logo />
                 </div>
-                <NavigationItems />
+                <NavigationItems isAuth={props.isAuthenticated} />
             </div>
         </Aux>
     );
